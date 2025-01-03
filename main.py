@@ -1,26 +1,24 @@
-content_dictionary= {}
-title = "--- Begin report of books/frankenstein.txt ---"
-count_chars = 0
-with open('./books/frankenstein.txt', 'r') as file:
-    file_contents = file.read().lower()
-    count_chars = len(file_contents.split())
-    for letter in file_contents.lower().replace(' ', ''):
-        if letter.isalpha():
-            if letter in content_dictionary:
-                content_dictionary[letter] += 1
-            else:
-                content_dictionary[letter] = 1
+def main():
+    file_path = 'books/frankenstein.txt'
+    words = None
+    characters_in_book = {}
+    with open(file_path) as f:
+        file_content = f.read()
+        splited_content = file_content.split()
+        words = len(splited_content)
+        for word in splited_content:
+            if word.isalpha():
+                for letter in  word.lower():
+                    if letter in characters_in_book:
+                        characters_in_book[letter] += 1
+                    else:
+                        characters_in_book[letter] = 1
 
-def compare_by_value(item):
-    return item[1]
-sorted_content = sorted(list(content_dictionary.items()), key=compare_by_value, reverse=True)
+    print(f'--- Begin report of {file_path} ---')
+    print(f'{words} words found in the document')
+    print("")
+    for char in characters_in_book:
+        print(f"The '{char}' character was found {characters_in_book[char]} times")
+    print("--- End report ---")
 
-
-print(title)
-print(f"{count_chars} words found in the document")
-
-for item in sorted_content:
-    print(f"The '{item[0]}' character was found {item[1]} times")
-
-print('--- End report ---')
-
+main()
